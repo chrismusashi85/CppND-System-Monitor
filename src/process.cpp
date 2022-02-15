@@ -33,9 +33,9 @@ long int Process::UpTime() const { return uptime_; }
 
 // TODO: Overload the "less than" comparison operator for Process objects -> DONE
 // REMOVE: [[maybe_unused]] once you define the function
-bool Process::operator<(Process const& a) const {
-    if (cpuutilization_ < a.cpuutilization_)
-        return false;
-    else
+bool Process::operator<(const Process& a) const {
+    if (a.cpuutilization_ < this->cpuutilization_)
         return true;
+    else
+        return false;
 }

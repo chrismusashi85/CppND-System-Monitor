@@ -23,11 +23,11 @@ You need to properly format the uptime. Refer to the comments mentioned in forma
 Processor& System::Cpu() { return cpu_; }
 
 // ADD: compare processes with cpuutilization
-bool Compare(const Process &a, const Process &b) {
+bool Compare(const Process& a, const Process& b) {
     return (a < b);
 }
 
-// TODO: Return a container composed of the system's processes
+// TODO: Return a container composed of the system's processes -> DONE
 vector<Process>& System::Processes() {
     processes_.clear();
     for (int pid : LinuxParser::Pids()) {
@@ -38,6 +38,7 @@ vector<Process>& System::Processes() {
         std::string command = LinuxParser::Command(pid); // command which invokes process
         processes_.push_back(Process(pid, user, cpuutilization, ram, uptime, command));
     }
+    //if (processes_.size() > 0)
     std::sort(processes_.begin(), processes_.end(), Compare);
     return processes_;
 }
