@@ -6,10 +6,9 @@
 
 using std::string;
 
-// TODO: Complete this helper function -> DONE
+// Complete this helper function -> DONE
 // INPUT: Long int measuring seconds
 // OUTPUT: HH:MM:SS
-// REMOVE: [[maybe_unused]] once you define the function
 string Format::ElapsedTime(long seconds) {
     long hour;
     long minute;

@@ -2,7 +2,7 @@
 #include "processor.h"
 #include "linux_parser.h"
 
-// TODO: Return the aggregate CPU utilization -> DONE
+// Return the aggregate CPU utilization -> DONE
 float Processor::Utilization() {
   std::string line;
   std::string key;

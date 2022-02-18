@@ -67,7 +67,7 @@ vector<int> LinuxParser::Pids() {
   return pids;
 }
 
-// TODO: Read and return the system memory utilization -> DONE
+//  Read and return the system memory utilization -> DONE
 float LinuxParser::MemoryUtilization() { 
   string line;
   string key;
@@ -93,7 +93,7 @@ float LinuxParser::MemoryUtilization() {
   return 0.;
 }
 
-// TODO: Read and return the system uptime -> DONE
+//  Read and return the system uptime -> DONE
 long LinuxParser::UpTime() {
   long uptime;
   string uptime_str, idletime_str;
@@ -108,20 +108,7 @@ long LinuxParser::UpTime() {
   return uptime;
 }
 
-// TODO: Read and return the number of jiffies for the system
-long LinuxParser::Jiffies() { return 0; }
-
-// TODO: Read and return the number of active jiffies for a PID
-// REMOVE: [[maybe_unused]] once you define the function
-//long LinuxParser::ActiveJiffies(int pid) { return 0; }
-
-// TODO: Read and return the number of active jiffies for the system
-long LinuxParser::ActiveJiffies() { return 0; }
-
-// TODO: Read and return the number of idle jiffies for the system
-long LinuxParser::IdleJiffies() { return 0; }
-
-// TODO: Read and return CPU utilization -> DONE
+//  Read and return CPU utilization -> DONE
 float LinuxParser::CpuUtilization(int pid) {
   string dummy, utime_str, stime_str, cutime_str, cstime_str, starttime_str;
   float utime, stime, starttime, total_time, seconds;
@@ -144,13 +131,13 @@ float LinuxParser::CpuUtilization(int pid) {
     linestream >> starttime_str; // #22
     starttime = std::stof(starttime_str);
     total_time = utime + stime;
-    seconds = (float)UpTime() - (starttime / herts);
+    seconds = static_cast<float>(UpTime()) - (starttime / herts);
     return ((total_time / herts) / seconds);
   }
   return (0.0);
 }
 
-// TODO: Read and return the total number of processes -> DONE
+//  Read and return the total number of processes -> DONE
 int LinuxParser::TotalProcesses() {
   string line;
   string key;
@@ -169,7 +156,7 @@ int LinuxParser::TotalProcesses() {
   return 0;  
 }
 
-// TODO: Read and return the number of running processes -> DONE
+//  Read and return the number of running processes -> DONE
 int LinuxParser::RunningProcesses() {
   string line;
   string key;
@@ -188,7 +175,6 @@ int LinuxParser::RunningProcesses() {
   return 0;  
 }
 
-// REMOVE: [[maybe_unused]] once you define the function
 string LinuxParser::Command(int pid) {
   string line, command_str = "";
 
@@ -201,8 +187,7 @@ string LinuxParser::Command(int pid) {
   return command_str;
 }
 
-// TODO: Read and return the memory used by a process -> DONE
-// REMOVE: [[maybe_unused]] once you define the function
+//  Read and return the memory used by a process -> DONE
 string LinuxParser::Ram(int pid) {
   string line;
   string key;
@@ -212,7 +197,9 @@ string LinuxParser::Ram(int pid) {
     while (std::getline(filestream, line)) {
       std::istringstream linestream(line);
       while (linestream >> key >> value) {
-        if (key == "VmSize:") {
+        // Udacity guidline suggests that I should use "VmSize" as a key, but it gives us "virtual memory size",
+        // so I use "VmRSS" instead of "VmSize", because it gives us "physical RAM size".
+        if (key == "VmRSS:") { 
           return (std::to_string(std::stoi(value)/1024));
         }
       }
@@ -221,8 +208,7 @@ string LinuxParser::Ram(int pid) {
   return ("");
 }
 
-// TODO: Read and return the user ID associated with a process -> DONE
-// REMOVE: [[maybe_unused]] once you define the function
+//  Read and return the user ID associated with a process -> DONE
 string LinuxParser::Uid(int pid) {
   string line;
   string key;
@@ -241,8 +227,7 @@ string LinuxParser::Uid(int pid) {
   return("");
 }
 
-// TODO: Read and return the user associated with a process -> DONE
-// REMOVE: [[maybe_unused]] once you define the function
+//  Read and return the user associated with a process -> DONE
 string LinuxParser::User(int pid) {
   string uid = Uid(pid);
   string passwd;
@@ -264,8 +249,7 @@ string LinuxParser::User(int pid) {
   return ("");
 }
 
-// TODO: Read and return the uptime of a process -> DONE
-// REMOVE: [[maybe_unused]] once you define the function
+//  Read and return the uptime of a process -> DONE
 long LinuxParser::UpTime(int pid) {
   string line, dummy, uptime_str = "0";
   long herts = sysconf(_SC_CLK_TCK);

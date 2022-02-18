@@ -11,7 +11,7 @@ It contains relevant attributes as shown below
 */
 class Process {
  public:
-  Process(int pid, string user, float cpuutilization, string ram, long int uptime, string command); // consructor
+  Process(int pid, string user, string command, float cpuutilization, string ram, long int uptime); // consructor
   int Pid() const;                               // TODO: See src/process.cpp
   std::string User() const;                      // TODO: See src/process.cpp
   std::string Command() const;                   // TODO: See src/process.cpp
